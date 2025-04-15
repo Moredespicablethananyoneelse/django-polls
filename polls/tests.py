@@ -18,7 +18,6 @@ class QuestionModelTests(TestCase):
         future_question = Question(pub_date=time)
         self.assertIs(future_question.was_published_recently(), False)
 
-
     def test_was_published_recently_with_old_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
