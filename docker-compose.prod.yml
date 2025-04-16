@@ -10,6 +10,7 @@ services:
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/polls/web/staticfiles
+      - media_volume:/home/polls/web/mediafiles
     # ports:
     #   - 8000:8000
     expose:
@@ -28,6 +29,7 @@ services:
     build: ./nginx
     volumes:
       - static_volume:/home/polls/web/staticfiles
+      - media_volume:/home/polls/web/mediafiles
     ports:
       - 1337:80
     depends_on:
@@ -36,3 +38,4 @@ services:
 volumes:
   postgres_data:
   static_volume:
+  media_volume:
