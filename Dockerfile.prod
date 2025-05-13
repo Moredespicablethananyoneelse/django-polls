@@ -7,7 +7,7 @@
 FROM python:3.13-bookworm AS builder
 # set work directory
 #WORKDIR /usr/src/app
-WORKDIR /usr/src/polls
+WORKDIR /usr/src/mysite
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -19,12 +19,12 @@ RUN apt-get update && \
 # lint
 RUN pip install --upgrade pip
 RUN pip install flake8==7.2.0
-COPY . /usr/src/polls/
+COPY . /usr/src/mysite/
 RUN flake8 --ignore=E501,F401 .
 
 # install python dependencies
 COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/polls/wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/mysite/wheels -r requirements.txt
 
 
 #########
@@ -35,14 +35,14 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/polls/wheels -r requ
 #FROM python:3.11.4-slim-buster
 FROM python:3.13-bookworm
 # create directory for the app user
-RUN mkdir -p /home/polls
+RUN mkdir -p /home/mysite
 
 # create the app user
-RUN addgroup --system polls && adduser --system --group polls
+RUN addgroup --system mysite && adduser --system --group mysite
 
 # create the appropriate directories
-ENV HOME=/home/polls
-ENV APP_HOME=/home/polls/web
+ENV HOME=/home/mysite
+ENV APP_HOME=/home/mysite/web
 RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/mediafiles
@@ -50,8 +50,8 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd
-COPY --from=builder /usr/src/polls/wheels /wheels
-COPY --from=builder /usr/src/polls/requirements.txt .
+COPY --from=builder /usr/src/mysite/wheels /wheels
+COPY --from=builder /usr/src/mysite/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
@@ -64,10 +64,10 @@ RUN chmod +x  $APP_HOME/entrypoint.prod.sh
 COPY . $APP_HOME
 
 # chown all the files to the app user
-RUN chown -R polls:polls $APP_HOME
+RUN chown -R mysite:mysite $APP_HOME
 
 # change to the app user
-USER polls
+USER mysite
 
 # run entrypoint.prod.sh
-ENTRYPOINT ["/home/polls/web/entrypoint.prod.sh"]
+ENTRYPOINT ["/home/mysite/web/entrypoint.prod.sh"]

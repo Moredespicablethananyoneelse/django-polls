@@ -4,7 +4,7 @@
 #FROM ghcr.io/jumpserver/python:3.12.3-slim-buster
 FROM  python:3.13-bookworm
 # set work directory
-WORKDIR /usr/src/polls
+WORKDIR /usr/src/mysite
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -19,11 +19,11 @@ RUN pip install -r requirements.txt
 
 # copy entrypoint.sh
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/polls/entrypoint.sh
-RUN chmod +x /usr/src/polls/entrypoint.sh
+RUN sed -i 's/\r$//g' /usr/src/mysite/entrypoint.sh
+RUN chmod +x /usr/src/mysite/entrypoint.sh
 
 # copy project
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/polls/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/mysite/entrypoint.sh"]
