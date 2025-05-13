@@ -24,6 +24,10 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path("", image_upload, name="upload"),
+    path("accounts/", include("allauth.urls")),
+    path("_allauth/", include("allauth.headless.urls")),
+    # path("drf/", include("mysite.drf_demo.urls")),
+    # path("ninja/", include("mysite.ninja_demo.urls")),
 ]
 if bool(settings.DEBUG):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
