@@ -1,0 +1,767 @@
+目前国内可用Docker镜像源汇总（截至2025年4月）
+Docker 镜像加速列表
+关注服务号【索引目录】：回复【docker】获取得地址
+服务号文章链接：目前国内可用Docker镜像源汇总（截至2025年3月）
+
+
+
+
+配置方式1：临时使用
+直接使用，直接拿镜像域名拼接上官方镜像名，例如要拉去镜像 istio/distroless，可以用下面写法（不要带 https://）
+
+docker pull docker-0.unsee.tech/istio/distroless
+
+
+配置方式2：长久有效
+Ubuntu 16.04+、Debian 8+、CentOS 7+
+修改文件 /etc/docker/daemon.json（如果不存在则需要创建创建，注意不要写入中文，要带 https://），并重启服务。
+
+# 创建目录
+sudo mkdir -p /etc/docker
+
+
+# 写入配置文件
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": [
+    "https://docker-0.unsee.tech",
+    "https://docker-cf.registry.cyou",
+    "https://docker.1panel.live"
+  ]
+}
+EOF
+
+
+# 重启docker服务
+sudo systemctl daemon-reload && sudo systemctl restart docker
+#可直接使用 docker pull拉去镜像进行测试：
+sudo docker run docker-0.unsee.tech/hello-world
+或用以下命令检查是否生效：
+
+ping -c 3 docker-0.unsee.tech
+
+
+
+
+*************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/konglinglei/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/konglinglei/.ssh/id_rsa
+Your public key has been saved in /home/konglinglei/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:uw1jhOk6wLPRUI//DhzXjq2/gcokJD9g6UmPQ9ru8uA konglinglei@LAPTOP-L10GM0C4
+The key's randomart image is:
++---[RSA 3072]----+
+|                 |
+|    .            |
+|   . o           |
+|  ... .o .       |
+| .Bo..+ S .      |
+| B=O.o.+ *       |
+|o *== =.B +      |
+|oo...* +.* .     |
+| E+ ..o.+.+.     |
++----[SHA256]-----+
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ vim ~/.ssh/id_rsa.pub
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ git clone git@github.com:Moredespicablethananyoneelse/django-polls.git
+Cloning into 'django-polls'...
+remote: Enumerating objects: 32, done.
+remote: Counting objects: 100% (31/31), done.
+remote: Compressing objects: 100% (26/26), done.
+remote: Total 32 (delta 0), reused 20 (delta 0), pack-reused 1 (from 1)
+Receiving objects: 100% (32/32), 27.98 KiB | 13
+
+
+*******************************
+  command 'python' from deb python-is-python3
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ python3
+Python 3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit
+Use quit() or Ctrl-D (i.e. EOF) to exit
+>>> quit()
+*************************
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$ pwd
+/home/konglinglei/docker-related
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$ ls
+django-polls  source  tutorial  venv
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+**************************
+
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ python3 -m venv venv
+The virtual environment was not created successfully because ensurepip is not
+available.  On Debian/Ubuntu systems, you need to install the python3-venv
+package using the following command.
+
+    apt install python3.12-venv
+
+You may need to use sudo with that command.  After installing the python3-venv
+package, recreate your virtual environment.
+
+Failing command: /home/konglinglei/docker-related/venv/bin/python3
+
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ apt install python3.12-venv
+E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ sudo apt install python3.12-venv
+[sudo] password for konglinglei:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  python3-pip-whl python3-setuptools-whl
+The following NEW packages will be installed:
+  python3-pip-whl python3-setuptools-whl python3.12-venv
+0 upgraded, 3 newly installed, 0 to remove and 38 not upgraded.
+Need to get 2424 kB of archives.
+After this operation, 2771 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-pip-whl all 24.0+dfsg-1ubuntu1.1 [1703 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-setuptools-whl all 68.1.2-2ubuntu1.1 [716 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3.12-venv amd64 3.12.3-1ubuntu0.5 [5678 B]
+Fetched 2424 kB in 16s (149 kB/s)
+Selecting previously unselected package python3-pip-whl.
+(Reading database ... 41308 files and directories currently installed.)
+Preparing to unpack .../python3-pip-whl_24.0+dfsg-1ubuntu1.1_all.deb ...
+Unpacking python3-pip-whl (24.0+dfsg-1ubuntu1.1) ...
+Selecting previously unselected package python3-setuptools-whl.
+Preparing to unpack .../python3-setuptools-whl_68.1.2-2ubuntu1.1_all.deb ...
+Unpacking python3-setuptools-whl (68.1.2-2ubuntu1.1) ...
+Selecting previously unselected package python3.12-venv.
+Preparing to unpack .../python3.12-venv_3.12.3-1ubuntu0.5_amd64.deb ...
+Unpacking python3.12-venv (3.12.3-1ubuntu0.5) ...
+Setting up python3-setuptools-whl (68.1.2-2ubuntu1.1) ...
+Setting up python3-pip-whl (24.0+dfsg-1ubuntu1.1) ...
+Setting up python3.12-venv (3.12.3-1ubuntu0.5) ...
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+***************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ python3 -m venv venv
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ source venv/bin/activate
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+
+**************************************
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$ pip install django
+Collecting django
+  Using cached Django-5.2-py3-none-any.whl.metadata (4.1 kB)
+Collecting asgiref>=3.8.1 (from django)
+  Using cached asgiref-3.8.1-py3-none-any.whl.metadata (9.3 kB)
+Collecting sqlparse>=0.3.1 (from django)
+  Using cached sqlparse-0.5.3-py3-none-any.whl.metadata (3.9 kB)
+WARNING: Certificate did not match expected hostname: files.pythonhosted.org. Certificate: {'subject': ((('commonName', '144.48.212.178'),),), 'issuer': ((('countryName', 'PL'),), (('organizationName', 'Unizeto Technologies S.A.'),), (('organizationalUnitName', 'Certum Certification Authority'),), (('commonName', 'Certum Domain Validation CA SHA2'),)), 'version': 3, 'serialNumber': '3930F938889A8FB265FD85F7A8CD2595', 'notBefore': 'Feb 16 06:34:45 2025 GMT', 'notAfter': 'Mar 18 06:34:44 2026 GMT', 'subjectAltName': (('IP Address', '144.48.212.178'), ('IP Address', '144.48.212.180')), 'OCSP': ('http://dvcasha2.ocsp-certum.com',), 'caIssuers': ('http://repository.certum.pl/dvcasha2.cer',), 'crlDistributionPoints': ('http://crl.certum.pl/dvcasha2.crl',)}
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(CertificateError("hostname 'files.pythonhosted.org' doesn't match either of '144.48.212.178', '144.48.212.180'"))': /packages/63/e0/6a5b5ea350c5bd63fe94b05e4c146c18facb51229d9dee42aa39f9fc2214/Django-5.2-py3-none-any.whl
+Downloading Django-5.2-py3-none-any.whl (8.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.3/8.3 MB 150.5 kB/s eta 0:00:00
+Downloading asgiref-3.8.1-py3-none-any.whl (23 kB)
+Downloading sqlparse-0.5.3-py3-none-any.whl (44 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.4/44.4 kB 287.1 kB/s eta 0:00:00
+Installing collected packages: sqlparse, asgiref, django
+Successfully installed asgiref-3.8.1 django-5.2 sqlparse-0.5.3
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+******************************************
+
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ python manage.py migrate
+System check identified some issues:
+
+WARNINGS:
+polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying polls.0001_initial... OK
+  Applying sessions.0001_initial... OK
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ python manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+
+System check identified 2 issues (0 silenced).
+April 15, 2025 - 08:31:46
+Django version 5.2, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+****************************
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ pip freeze > requirements.txt
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ ls
+Dockerfile  LICENSE  README.md  db.sqlite3  manage.py  mysite  polls  requirements.txt  templates
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ vim requirements.txt
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+******************************
+(venv) konglinglei@LAPTOP-L10GM0C4:~/docker-related$ deactivate
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+****************************8
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ rm -rf venv
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ ls
+django-polls  source  tutorial
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+***************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ ls
+django-polls  source  tutorial
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ cd django-polls/
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ ls
+Dockerfile  LICENSE  README.md  db.sqlite3  manage.py  mysite  polls  requirements.txt  templates
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ rm db.sqlite3
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ cd ..
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ ls
+django-polls  source  tutorial
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$
+*******************************
+
+konglinglei@LAPTOP-L10GM0C4:~/docker-related$ cd django-polls/
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ ls
+Dockerfile  LICENSE  README.md  manage.py  mysite  polls  requirements.txt  templates
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ vim Dockerfile
+**********************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ vim docker-compose.yml
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+     ********
+     version: '3.8'
+
+	services:
+  		web:
+    		build: ./app
+    		command: python manage.py runserver 0.0.0.0:8000
+    		volumes:
+      			- ./app/:/usr/src/app/
+    		ports:
+      			- 8000:8000
+    		env_file:
+      			- ./.env.dev
+     ********
+**************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose build
+Command 'docker-compose' not found, but can be installed with:
+sudo snap install docker          # version 27.5.1, or
+sudo apt  install docker-compose  # version 1.29.2-6
+See 'snap info docker' for additional versions.
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker --version
+Docker version 28.0.1, build 068a01e
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ sudo apt install docker-compose
+[sudo] password for konglinglei:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  containerd.io docker-ce docker-ce-cli python3-compose python3-docker python3-dockerpty python3-docopt python3-dotenv
+  python3-packaging python3-texttable python3-websocket
+Suggested packages:
+  cgroupfs-mount | cgroup-lite
+Recommended packages:
+  docker.io
+The following NEW packages will be installed:
+  docker-compose python3-compose python3-docker python3-dockerpty python3-docopt python3-dotenv python3-packaging
+  python3-texttable python3-websocket
+The following packages will be upgraded:
+  containerd.io docker-ce docker-ce-cli
+3 upgraded, 9 newly installed, 0 to remove and 35 not upgraded.
+Need to get 65.8 MB of archives.
+After this operation, 5552 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 https://download.docker.com/linux/ubuntu noble/stable amd64 containerd.io amd64 1.7.27-1 [30.5 MB]
+Get:2 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-websocket all 1.7.0-1 [38.1 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-packaging all 24.0-1 [41.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-docker all 5.0.3-1ubuntu1.1 [89.1 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-dockerpty all 0.4.1-5 [11.4 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-docopt all 0.6.2-6 [26.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-dotenv all 1.0.1-1 [22.3 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-texttable all 1.6.7-1 [11.0 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-compose all 1.29.2-6ubuntu1 [84.6 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/universe amd64 docker-compose all 1.29.2-6ubuntu1 [14.0 kB]
+Get:11 https://download.docker.com/linux/ubuntu noble/stable amd64 docker-ce-cli amd64 5:28.0.4-1~ubuntu.24.04~noble [15.8 MB]
+Get:12 https://download.docker.com/linux/ubuntu noble/stable amd64 docker-ce amd64 5:28.0.4-1~ubuntu.24.04~noble [19.1 MB]
+Fetched 65.8 MB in 8s (8008 kB/s)
+(Reading database ... 41331 files and directories currently installed.)
+Preparing to unpack .../00-containerd.io_1.7.27-1_amd64.deb ...
+Unpacking containerd.io (1.7.27-1) over (1.7.25-1) ...
+Preparing to unpack .../01-docker-ce-cli_5%3a28.0.4-1~ubuntu.24.04~noble_amd64.deb ...
+Unpacking docker-ce-cli (5:28.0.4-1~ubuntu.24.04~noble) over (5:28.0.1-1~ubuntu.24.04~noble) ...
+Preparing to unpack .../02-docker-ce_5%3a28.0.4-1~ubuntu.24.04~noble_amd64.deb ...
+Unpacking docker-ce (5:28.0.4-1~ubuntu.24.04~noble) over (5:28.0.1-1~ubuntu.24.04~noble) ...
+Selecting previously unselected package python3-websocket.
+Preparing to unpack .../03-python3-websocket_1.7.0-1_all.deb ...
+Unpacking python3-websocket (1.7.0-1) ...
+Selecting previously unselected package python3-packaging.
+Preparing to unpack .../04-python3-packaging_24.0-1_all.deb ...
+Unpacking python3-packaging (24.0-1) ...
+Selecting previously unselected package python3-docker.
+Preparing to unpack .../05-python3-docker_5.0.3-1ubuntu1.1_all.deb ...
+Unpacking python3-docker (5.0.3-1ubuntu1.1) ...
+Selecting previously unselected package python3-dockerpty.
+Preparing to unpack .../06-python3-dockerpty_0.4.1-5_all.deb ...
+Unpacking python3-dockerpty (0.4.1-5) ...
+Selecting previously unselected package python3-docopt.
+Preparing to unpack .../07-python3-docopt_0.6.2-6_all.deb ...
+Unpacking python3-docopt (0.6.2-6) ...
+Selecting previously unselected package python3-dotenv.
+Preparing to unpack .../08-python3-dotenv_1.0.1-1_all.deb ...
+Unpacking python3-dotenv (1.0.1-1) ...
+Selecting previously unselected package python3-texttable.
+Preparing to unpack .../09-python3-texttable_1.6.7-1_all.deb ...
+Unpacking python3-texttable (1.6.7-1) ...
+Selecting previously unselected package python3-compose.
+Preparing to unpack .../10-python3-compose_1.29.2-6ubuntu1_all.deb ...
+Unpacking python3-compose (1.29.2-6ubuntu1) ...
+Selecting previously unselected package docker-compose.
+Preparing to unpack .../11-docker-compose_1.29.2-6ubuntu1_all.deb ...
+Unpacking docker-compose (1.29.2-6ubuntu1) ...
+Setting up python3-dotenv (1.0.1-1) ...
+Setting up python3-texttable (1.6.7-1) ...
+Setting up python3-docopt (0.6.2-6) ...
+Setting up python3-packaging (24.0-1) ...
+Setting up containerd.io (1.7.27-1) ...
+Setting up docker-ce-cli (5:28.0.4-1~ubuntu.24.04~noble) ...
+Setting up python3-websocket (1.7.0-1) ...
+Setting up python3-dockerpty (0.4.1-5) ...
+Setting up python3-docker (5.0.3-1ubuntu1.1) ...
+Setting up python3-compose (1.29.2-6ubuntu1) ...
+Setting up docker-ce (5:28.0.4-1~ubuntu.24.04~noble) ...
+Setting up docker-compose (1.29.2-6ubuntu1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+**********************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose build
+Building web
+[+] Building 0.5s (2/2) FINISHED                                                                         docker:default
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 454B                                                                               0.0s
+ => ERROR [internal] load metadata for ghcr.io/jumpserver/python:3.12.3-slim-buster                                0.5s
+------
+ > [internal] load metadata for ghcr.io/jumpserver/python:3.12.3-slim-buster:
+------
+Dockerfile:4
+--------------------
+   2 |     #FROM python:3.11.4-slim-buster
+   3 |     #FROM python:3.12.3-slim-buster
+   4 | >>> FROM ghcr.io/jumpserver/python:3.12.3-slim-buster
+   5 |     # set work directory
+   6 |     WORKDIR /usr/src/django-polls
+--------------------
+ERROR: failed to solve: ghcr.io/jumpserver/python:3.12.3-slim-buster: failed to resolve source metadata for ghcr.io/jumpserver/python:3.12.3-slim-buster: failed to do request: Head "https://ghcr.io/v2/jumpserver/python/manifests/3.12.3-slim-buster": tls: failed to verify certificate: x509: certificate is not valid for any names, but wanted to match ghcr.io
+ERROR: Service 'web' failed to build : Build failed
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ ^C
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker pull ghcr.io/jumpserver/python:3.12.3-slim-buster
+3.12.3-slim-buster: Pulling from jumpserver/python
+8e208ccce385: Pull complete
+f9b6821297dd: Pull complete
+e736a21a52b4: Pull complete
+5f55e900ae3a: Pull complete
+5d33eb3761ff: Pull complete
+Digest: sha256:1e9390904a9f72fe73e2b37ef0e33ae17d7ee623980356bba7b8c34156899394
+Status: Downloaded newer image for ghcr.io/jumpserver/python:3.12.3-slim-buster
+ghcr.io/jumpserver/python:3.12.3-slim-buster
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose build
+Building web
+[+] Building 64.8s (11/11) FINISHED                                                                      docker:default
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 454B                                                                               0.0s
+ => WARN: LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 9)   0.0s
+ => WARN: LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 10)  0.0s
+ => [internal] load metadata for ghcr.io/jumpserver/python:3.12.3-slim-buster                                      0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [1/6] FROM ghcr.io/jumpserver/python:3.12.3-slim-buster                                                        0.1s
+ => [internal] load build context                                                                                  0.1s
+ => => transferring context: 118.94kB                                                                              0.0s
+ => [2/6] WORKDIR /usr/src/django-polls                                                                            0.1s
+ => [3/6] RUN pip install --upgrade pip                                                                            6.2s
+ => [4/6] COPY ./requirements.txt .                                                                                0.0s
+ => [5/6] RUN pip install -r requirements.txt                                                                     56.8s
+ => [6/6] COPY . .                                                                                                 0.1s
+ => exporting to image                                                                                             1.4s
+ => => exporting layers                                                                                            1.4s
+ => => writing image sha256:7f8a7483a432e6bad5df179994a9be674b958f5df7ed73b921ec834d72d788db                       0.0s
+ => => naming to docker.io/library/django-polls_web                                                                0.0s
+
+ 2 warnings found (use docker --debug to expand):
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 9)
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 10)
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+****************************8
+将Dockerfile中环境变量的配置方式，修改成=形式
+****************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose down -v
+Removing django-polls_web_1 ... done
+Removing network django-polls_default
+Removing volume django-polls_postgres_data
+WARNING: Volume django-polls_postgres_data not found.
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose build --no-cache
+db uses an image, skipping
+Building web
+[+] Building 16.5s (11/11) FINISHED                                                                      docker:default
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 475B                                                                               0.0s
+ => [internal] load metadata for docker.io/library/python:3.13-bookworm                                            0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [1/6] FROM docker.io/library/python:3.13-bookworm                                                              0.0s
+ => [internal] load build context                                                                                  0.0s
+ => => transferring context: 8.93kB                                                                                0.0s
+ => CACHED [2/6] WORKDIR /usr/src/polls                                                                            0.0s
+ => [3/6] RUN pip install --upgrade pip                                                                            3.4s
+ => [4/6] COPY ./requirements.txt .                                                                                0.0s
+ => [5/6] RUN pip install -r requirements.txt                                                                     11.2s
+ => [6/6] COPY . .                                                                                                 0.1s
+ => exporting to image                                                                                             1.6s
+ => => exporting layers                                                                                            1.6s
+ => => writing image sha256:8469c66d167fcd0bf3d46a44b1bd13ce37be7d79342e843bddd2bead87292ef5                       0.0s
+ => => naming to docker.io/library/django-polls_web                                                                0.0s
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ 
+***************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose up -d
+Creating network "django-polls_default" with the default driver
+Creating volume "django-polls_postgres_data" with default driver
+Pulling db (postgres:17)...
+17: Pulling from library/postgres
+8a628cdd7ccc: Pull complete
+e4847368ad17: Pull complete
+97cdd47d9131: Pull complete
+2817206b0512: Pull complete
+3a6f8814136c: Pull complete
+07db60713289: Pull complete
+0c942aac37b1: Pull complete
+8c63b71925de: Pull complete
+97f28320a07a: Pull complete
+2a08aad74366: Pull complete
+6cea4d95608f: Pull complete
+c1b7de8085d1: Pull complete
+f15c43cffa70: Pull complete
+6948dc7760c1: Pull complete
+Digest: sha256:fe3f571d128e8efadcd8b2fde0e2b73ebab6dbec33f6bfe69d98c682c7d8f7bd
+Status: Downloaded newer image for postgres:17
+Creating django-polls_db_1 ... done
+Creating django-polls_web_1 ... done
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+**********************************************8
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose exec web python manage.py migrate --noinput
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+*********************************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose logs -f
+Attaching to django-polls_web_1, django-polls_db_1
+web_1  | Traceback (most recent call last):
+web_1  |   File "/usr/src/polls/manage.py", line 15, in <module>
+web_1  |     execute_from_command_line(sys.argv)
+web_1  |     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+web_1  |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+web_1  |     utility.execute()
+web_1  |     ~~~~~~~~~~~~~~~^^
+web_1  |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 382, in execute
+web_1  |     settings.INSTALLED_APPS
+web_1  |   File "/usr/local/lib/python3.13/site-packages/django/conf/__init__.py", line 81, in __getattr__
+web_1  |     self._setup(name)
+web_1  |     ~~~~~~~~~~~^^^^^^
+web_1  |   File "/usr/local/lib/python3.13/site-packages/django/conf/__init__.py", line 68, in _setup
+web_1  |     self._wrapped = Settings(settings_module)
+web_1  |                     ~~~~~~~~^^^^^^^^^^^^^^^^^
+web_1  |   File "/usr/local/lib/python3.13/site-packages/django/conf/__init__.py", line 166, in __init__
+web_1  |     mod = importlib.import_module(self.SETTINGS_MODULE)
+web_1  |   File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+web_1  |     return _bootstrap._gcd_import(name[level:], package, level)
+web_1  |            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web_1  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+web_1  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+web_1  |   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+web_1  |   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+web_1  |   File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+web_1  |   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+web_1  |   File "/usr/src/polls/mysite/settings.py", line 91, in <module>
+web_1  |     "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+web_1  |                                            ~~~~~~~~~^~~~~~~~~~~~~~
+web_1  | TypeError: unsupported operand type(s) for /: 'str' and 'str'
+db_1   | The files belonging to this database system will be owned by user "postgres".
+db_1   | This user must also own the server process.
+db_1   |
+db_1   | The database cluster will be initialized with locale "en_US.utf8".
+db_1   | The default database encoding has accordingly been set to "UTF8".
+db_1   | The default text search configuration will be set to "english".
+db_1   |
+db_1   | Data page checksums are disabled.
+db_1   |
+db_1   | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+db_1   | creating subdirectories ... ok
+db_1   | selecting dynamic shared memory implementation ... posix
+db_1   | selecting default "max_connections" ... 100
+db_1   | selecting default "shared_buffers" ... 128MB
+db_1   | selecting default time zone ... Etc/UTC
+db_1   | creating configuration files ... ok
+db_1   | running bootstrap script ... ok
+db_1   | performing post-bootstrap initialization ... ok
+db_1   | syncing data to disk ... ok
+db_1   |
+db_1   |
+db_1   | Success. You can now start the database server using:
+db_1   |
+db_1   |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+db_1   |
+db_1   | initdb: warning: enabling "trust" authentication for local connections
+db_1   | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+db_1   | waiting for server to start....2025-04-15 10:34:26.163 UTC [48] LOG:  starting PostgreSQL 17.4 (Debian 17.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+db_1   | 2025-04-15 10:34:26.166 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1   | 2025-04-15 10:34:26.176 UTC [51] LOG:  database system was shut down at 2025-04-15 10:34:25 UTC
+db_1   | 2025-04-15 10:34:26.184 UTC [48] LOG:  database system is ready to accept connections
+db_1   |  done
+db_1   | server started
+db_1   | CREATE DATABASE
+db_1   |
+db_1   |
+db_1   | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+db_1   |
+db_1   | waiting for server to shut down...2025-04-15 10:34:26.364 UTC [48] LOG:  received fast shutdown request
+db_1   | .2025-04-15 10:34:26.367 UTC [48] LOG:  aborting any active transactions
+db_1   | 2025-04-15 10:34:26.369 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+db_1   | 2025-04-15 10:34:26.370 UTC [49] LOG:  shutting down
+db_1   | 2025-04-15 10:34:26.372 UTC [49] LOG:  checkpoint starting: shutdown immediate
+db_1   | 2025-04-15 10:34:26.478 UTC [49] LOG:  checkpoint complete: wrote 921 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.023 s, sync=0.076 s, total=0.109 s; sync files=301, longest=0.003 s, average=0.001 s; distance=4238 kB, estimate=4238 kB; lsn=0/1908988, redo lsn=0/1908988
+db_1   | 2025-04-15 10:34:26.488 UTC [48] LOG:  database system is shut down
+db_1   |  done
+db_1   | server stopped
+db_1   |
+db_1   | PostgreSQL init process complete; ready for start up.
+db_1   |
+db_1   | 2025-04-15 10:34:26.592 UTC [1] LOG:  starting PostgreSQL 17.4 (Debian 17.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+db_1   | 2025-04-15 10:34:26.593 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db_1   | 2025-04-15 10:34:26.603 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db_1   | 2025-04-15 10:34:26.613 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1   | 2025-04-15 10:34:26.621 UTC [64] LOG:  database system was shut down at 2025-04-15 10:34:26 UTC
+db_1   | 2025-04-15 10:34:26.628 UTC [1] LOG:  database system is ready to accept connections
+django-polls_web_1 exited with code 1
+******************************
+上面是sqldb3的配置路径格式不对。可以用deepseek分析报错日志
+****************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose logs -f
+Attaching to django-polls_web_1, django-polls_db_1
+web_1  | Watching for file changes with StatReloader
+web_1  | Performing system checks...
+web_1  |
+web_1  | System check identified some issues:
+web_1  |
+web_1  | WARNINGS:
+web_1  | polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+web_1  |        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+web_1  | polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+web_1  |        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+web_1  |
+web_1  | System check identified 2 issues (0 silenced).
+web_1  |
+web_1  | You have 19 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, polls, sessions.
+web_1  | Run 'python manage.py migrate' to apply them.
+web_1  | April 15, 2025 - 10:42:31
+web_1  | Django version 5.2, using settings 'mysite.settings'
+web_1  | Starting development server at http://0.0.0.0:8000/
+web_1  | Quit the server with CONTROL-C.
+web_1  |
+web_1  | WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+web_1  | For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+db_1   | The files belonging to this database system will be owned by user "postgres".
+db_1   | This user must also own the server process.
+db_1   |
+db_1   | The database cluster will be initialized with locale "en_US.utf8".
+db_1   | The default database encoding has accordingly been set to "UTF8".
+db_1   | The default text search configuration will be set to "english".
+db_1   |
+db_1   | Data page checksums are disabled.
+db_1   |
+db_1   | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+db_1   | creating subdirectories ... ok
+db_1   | selecting dynamic shared memory implementation ... posix
+db_1   | selecting default "max_connections" ... 100
+db_1   | selecting default "shared_buffers" ... 128MB
+db_1   | selecting default time zone ... Etc/UTC
+db_1   | creating configuration files ... ok
+db_1   | running bootstrap script ... ok
+db_1   | performing post-bootstrap initialization ... ok
+db_1   | syncing data to disk ... ok
+db_1   |
+db_1   |
+db_1   | initdb: warning: enabling "trust" authentication for local connections
+db_1   | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+db_1   | Success. You can now start the database server using:
+db_1   |
+db_1   |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+db_1   |
+db_1   | waiting for server to start....2025-04-15 10:42:29.954 UTC [48] LOG:  starting PostgreSQL 17.4 (Debian 17.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+db_1   | 2025-04-15 10:42:29.958 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1   | 2025-04-15 10:42:29.966 UTC [51] LOG:  database system was shut down at 2025-04-15 10:42:29 UTC
+db_1   | 2025-04-15 10:42:29.973 UTC [48] LOG:  database system is ready to accept connections
+db_1   |  done
+db_1   | server started
+db_1   | CREATE DATABASE
+db_1   |
+db_1   |
+db_1   | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+db_1   |
+db_1   | waiting for server to shut down...2025-04-15 10:42:30.186 UTC [48] LOG:  received fast shutdown request
+db_1   | .2025-04-15 10:42:30.189 UTC [48] LOG:  aborting any active transactions
+db_1   | 2025-04-15 10:42:30.191 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+db_1   | 2025-04-15 10:42:30.191 UTC [49] LOG:  shutting down
+db_1   | 2025-04-15 10:42:30.193 UTC [49] LOG:  checkpoint starting: shutdown immediate
+db_1   | 2025-04-15 10:42:30.289 UTC [49] LOG:  checkpoint complete: wrote 921 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.019 s, sync=0.069 s, total=0.098 s; sync files=301, longest=0.003 s, average=0.001 s; distance=4238 kB, estimate=4238 kB; lsn=0/1908988, redo lsn=0/1908988
+db_1   | 2025-04-15 10:42:30.298 UTC [48] LOG:  database system is shut down
+db_1   |  done
+db_1   | server stopped
+db_1   |
+db_1   | PostgreSQL init process complete; ready for start up.
+db_1   |
+db_1   | 2025-04-15 10:42:30.413 UTC [1] LOG:  starting PostgreSQL 17.4 (Debian 17.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+db_1   | 2025-04-15 10:42:30.424 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db_1   | 2025-04-15 10:42:30.434 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db_1   | 2025-04-15 10:42:30.444 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1   | 2025-04-15 10:42:30.452 UTC [64] LOG:  database system was shut down at 2025-04-15 10:42:30 UTC
+db_1   | 2025-04-15 10:42:30.459 UTC [1] LOG:  database system is ready to accept connections
+^CERROR: Aborting.
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose exec web python manage.py migrate --noinput
+System check identified some issues:
+
+WARNINGS:
+polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying polls.0001_initial... OK
+  Applying sessions.0001_initial... OK
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+***************************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
+psql (17.4 (Debian 17.4-1.pgdg120+2))
+Type "help" for help.
+
+hello_django_dev=# \l
+hello_django_dev=# \c hello_django_dev
+You are now connected to database "hello_django_dev" as user "hello_django".
+hello_django_dev=# \dt
+                     List of relations
+ Schema |            Name            | Type  |    Owner
+--------+----------------------------+-------+--------------
+ public | auth_group                 | table | hello_django
+ public | auth_group_permissions     | table | hello_django
+ public | auth_permission            | table | hello_django
+ public | auth_user                  | table | hello_django
+ public | auth_user_groups           | table | hello_django
+ public | auth_user_user_permissions | table | hello_django
+ public | django_admin_log           | table | hello_django
+ public | django_content_type        | table | hello_django
+ public | django_migrations          | table | hello_django
+ public | django_session             | table | hello_django
+ public | polls_choice               | table | hello_django
+ public | polls_question             | table | hello_django
+(12 rows)
+
+hello_django_dev=#
+*********************************
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker volume inspect  django-polls_postgres_data
+[
+    {
+        "CreatedAt": "2025-04-15T18:42:28+08:00",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "django-polls",
+            "com.docker.compose.version": "1.29.2",
+            "com.docker.compose.volume": "postgres_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/django-polls_postgres_data/_data",
+        "Name": "django-polls_postgres_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+*****************************8
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ vim entrypoint.sh
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ chmod + entrypoint.sh
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ chmod +x entrypoint.sh
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+**********************************
+
+
+
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose exec web python manage.py flush --no-input
+System check identified some issues:
+
+WARNINGS:
+polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$ docker-compose exec web python manage.py migrate
+System check identified some issues:
+
+WARNINGS:
+polls.Choice: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+polls.Question: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+        HINT: Configure the DEFAULT_AUTO_FIELD setting or the PollsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying polls.0001_initial... OK
+  Applying sessions.0001_initial... OK
+konglinglei@LAPTOP-L10GM0C4:~/docker-related/django-polls$
+******************
